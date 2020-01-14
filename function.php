@@ -1,35 +1,56 @@
-<?php /**
-*
-Exp:Connect to database in oop style
-@params host dbname username password
-*/
+<?php 
+error_reporting(E_ALL);
 class Connect  
 {
-    //private only available forthe current class
-    private $host=null;
-    private $dbname = null;
-    private $username = null;
-    private $password = null;
-    function __construct($host,$dbname,$username,$password)
+    private $host = 'localhost';
+    private $dbname = 'project';
+    private $username = 'root';
+    private $password = '';
+    private $conn;
+
+    public function connect()
     {
-        $this->host = $host;
-        $this->dbname = $dbname;
-        $this->username = $username;
-        $this->password = $password;
-        $host = "localhost";
-        $dbname = "project";
-        $username = "root";
-        $password = "";
+        try{
+            $this->conn = new PDO("mysql:host=".$this->host.";dbname=".$this->db,$this->user,$this->pass);
+                //$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                //echo 'Conn Successful';
+            }
+        catch(PDOException $e)
+            {
+                echo 'Unable to connect'. $e;         
+            }
     }
-    function connect(){
-    try {
-    $conn = new PDO('mysql:host='.$this->host.';dbname='.$this->dbname, $this->username, $this->password);
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    } catch(PDOException $e) {
-    echo 'Unable to connect';
-    }
-    }
-} 
+    function insert($field_array=null, $data_array=null, $table=null){
+            $field_array  = "`".implode("`,`", $field_array)."`";
+	 		$data_array = "'".implode("','", $data_array)."'";
+            $table = "`".$table."`";
+            $sql= "insert into ".$table." (".$field_array.") values (".$data_array.")";
+            try{
+                $q = $this->conn->prepare($sql);
+                $q->execute();
+                }
+            catch(PDOException $e)
+                {
+                    echo 'Error while inserting'.$e ;
+                }
+            return true;
+    }      
+}
+
 $con = new Connect();
+
+$fieldData = array(
+    "1" => 'email',
+    "2" => 'password'
+);
+$postData = array(
+    "email" => '99@gmail.com',
+    "password" => '1001'
+);
+$table = 'users';
+
+
 $con->connect();
+$con->insert($fieldData, $postData, $table);
+
 ?>

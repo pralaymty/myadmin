@@ -1,4 +1,4 @@
-<?php require('function.php'); ?>
+<?php include ('function.php'); ?>
 <!DOCTYPE html>
 <html>
 <head>
