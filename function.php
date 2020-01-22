@@ -1,6 +1,6 @@
 <?php 
-error_reporting(E_ALL);
-class Connect  
+error_reporting(0);
+class basic 
 {
     private $host = 'localhost';
     private $dbname = 'project';
@@ -13,14 +13,15 @@ class Connect
         try{
             $this->conn = new PDO("mysql:host=".$this->host.";dbname=".$this->db,$this->user,$this->pass);
                 //$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                //echo 'Conn Successful';
+                echo 'Conn Successful';
             }
         catch(PDOException $e)
             {
                 echo 'Unable to connect'. $e;         
             }
     }
-    function insert($field_array=null, $data_array=null, $table=null){
+    public function insert($field_array=null, $data_array=null, $table=null)
+    {
             $field_array  = "`".implode("`,`", $field_array)."`";
 	 		$data_array = "'".implode("','", $data_array)."'";
             $table = "`".$table."`";
@@ -37,7 +38,8 @@ class Connect
     }      
 }
 
-$con = new Connect();
+$con = new basic();
+
 
 $fieldData = array(
     "1" => 'email',
