@@ -1,5 +1,5 @@
 <?php 
-error_reporting(0);
+error_reporting(E_ALL);
 class basic 
 {
     private $host = 'localhost';
@@ -11,7 +11,7 @@ class basic
     public function connect()
     {
         try{
-            $this->conn = new PDO("mysql:host=".$this->host.";dbname=".$this->db,$this->user,$this->pass);
+            $conn = new PDO("mysql:host=".$this->host.";dbname=".$this->db,$this->user,$this->pass);
                 //$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                 echo 'Conn Successful';
             }
@@ -20,15 +20,25 @@ class basic
                 echo 'Unable to connect'. $e;         
             }
     }
-    public function insert($field_array=null, $data_array=null, $table=null)
+    public function insert($data=null, $table=null)
+    // {
+    //         echo $field_array;
+    //         echo $data_array;
+    //         echo $table;
+
+    //         $query ="INSERT INTO $table_name ( ". implode(',' , $key) .") VALUES('". implode("','" , $value) ."')";
+    // }
     {
-            $field_array  = "`".implode("`,`", $field_array)."`";
-	 		$data_array = "'".implode("','", $data_array)."'";
-            $table = "`".$table."`";
-            $sql= "insert into ".$table." (".$field_array.") values (".$data_array.")";
+        $field_array1 = array_keys($data);    
+        $field_array  = "implode(',' , $field_array1)";
+
+        $data_array1 = array_values($data);
+	 	$data_array =  "implode(',' , $data_array1)";
+            $table = "$table";
+            $sql= "insert into '$table' ('$field_array') values ('$data_array')";
             try{
-                $q = $this->conn->prepare($sql);
-                $q->execute();
+                $conn->prepare($sql)->execute();
+                echo 'Inserted !';
                 }
             catch(PDOException $e)
                 {
@@ -39,20 +49,15 @@ class basic
 }
 
 $con = new basic();
-
-
-$fieldData = array(
-    "1" => 'email',
-    "2" => 'password'
-);
-$postData = array(
-    "email" => '99@gmail.com',
-    "password" => '1001'
-);
-$table = 'users';
-
-
 $con->connect();
-$con->insert($fieldData, $postData, $table);
+
+$data = array(
+    "name" => "pralay",
+    "email" => "abcd123",
+    "password" => "mnop"
+);
+$table = "users";
+
+$con->insert($data, $table);
 
 ?>
