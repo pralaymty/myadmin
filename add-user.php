@@ -2,6 +2,8 @@
   <!-- /.navbar -->
   <!-- Main Sidebar Container -->
   <?php include('sidebar.php'); ?>
+
+  <?php if(iseer) ?>
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -34,7 +36,7 @@
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form role="form">
+              <form role="form" action="" method="POST" enctype= multipart/form-data >
                 <div class="card-body">
                     <div class="form-group">
                         <label for="exampleInputEmail1">Full Name</label>
@@ -82,7 +84,7 @@
                 <!-- /.card-body -->
 
                 <div class="card-footer">
-                  <button type="submit" class="btn btn-primary">Submit</button>
+                  <button type="submit" name="submit" class="btn btn-primary">Submit</button>
                 </div>
               </form>
             </div>
