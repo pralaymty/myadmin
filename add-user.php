@@ -3,7 +3,9 @@
   <!-- Main Sidebar Container -->
   <?php include('sidebar.php'); ?>
 
-  <?php if(isset($_POST['submit'])){ $data = array("name" => $_POST[name], "email" => $_POST[name], "password" => $_POST[password]);  $table='users'; echo $dbObj->add($data, $table); } ?>
+  <?php 
+  
+  ?>
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -36,7 +38,7 @@
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form role="form" action="" method="POST" enctype= multipart/form-data >
+              <form role="form" action="add-user.php" method="POST" enctype= multipart/form-data >
                 <div class="card-body">
                     <div class="form-group">
                         <label for="exampleInputEmail1">Full Name</label>
