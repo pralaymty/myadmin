@@ -3,7 +3,7 @@
   <!-- Main Sidebar Container -->
   <?php include('sidebar.php'); ?>
 
-  <?php if(iseer) ?>
+  <?php if(isset($_POST['submit'])){ $data = array("name" => $_POST[name], "email" => $_POST[name], "password" => $_POST[password]);  $table='users'; echo $dbObj->add($data, $table); } ?>
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -40,7 +40,7 @@
                 <div class="card-body">
                     <div class="form-group">
                         <label for="exampleInputEmail1">Full Name</label>
-                        <input type="text" class="form-control" id="" placeholder="Enter Full Name">
+                        <input type="text" class="form-control" id="" placeholder="Enter Full Name" name="name">
                     </div>
 
                     <div class="form-group">
@@ -50,12 +50,12 @@
 
                     <div class="form-group">
                         <label for="exampleInputEmail1">Email address</label>
-                        <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+                        <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email" name="email">
                     </div>
 
                     <div class="form-group">
                         <label for="exampleInputPassword1">Password</label>
-                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" name="password">
                     </div>
 
                     <div class="form-group">
@@ -84,7 +84,7 @@
                 <!-- /.card-body -->
 
                 <div class="card-footer">
-                  <button type="submit" name="submit" class="btn btn-primary">Submit</button>
+                  <input type="submit" name="submit" class="btn btn-primary" value="Submit">
                 </div>
               </form>
             </div>
